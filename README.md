@@ -12,7 +12,7 @@ Maybe I'll manage this better one day, but get python >3.6 and:
     $ cd site
     $ python3 -m venv .site-venv/
     $ . .site-venv/bin/activate
-    (site-venv)$ pip install -r requirements.txt
+    (.site-venv)$ pip install -r requirements.txt
 ```
 
 Usage
@@ -30,19 +30,19 @@ This is useful when you want to see changes without having to rebuild the whole 
 
 To build the static website:
 
-    $ ./site build
+    $ ./site-tool build
 
 Generated HTML files and assets will go to the `./build/` directory.
 
 To deploy the website to AWS (caveat: You'll need to set some environment variables for secrets)):
 
-    $ ./site deploy
+    $ ./site-tool deploy
 
 There's also a command for creating new posts:
 
-    $ ./site post code --title="My title"
-    Created pages/code/2016/my-title.md
-    $ cat pages/code/2016/my-title.md
+    $ ./site-tool post blog --title="My title"
+    Created pages/blog/2016/my-title.md
+    $ cat pages/blog/2016/my-title.md
     title: My title
     date: 2016-10-05
     published: false

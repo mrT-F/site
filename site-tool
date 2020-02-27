@@ -9,14 +9,12 @@ from argh import ArghParser
 from argh import *
 from datetime import date, datetime
 from flask import Flask, render_template, abort
+from flask_assets import Environment as AssetManager
+from flask_flatpages import FlatPages
 from flask_frozen import Freezer
-from fabric.api import local
-from flaskext.flatpages import FlatPages
 from flaskext.markdown import Markdown
-from flaskext.assets import Environment as AssetManager
 from PIL import Image, ImageOps
 from shutil import copyfile
-from unicodedata import normalize
 
 # Configuration
 DEBUG = True
@@ -109,15 +107,13 @@ def section_exists(section):
     return not len(get_pages(pages, section=section)) == 0
 
 
-def slugify(text, delim=u'-'):
+def slugify(text, delim="-"):
     """Generates an slightly worse ASCII-only slug."""
     _punct_re = re.compile(r'[\t !"#$%&\'()*\-/<=>?@\[\\\]^_`{|},.]+')
     result = []
     for word in _punct_re.split(text.lower()):
-        word = normalize('NFKD', word).encode('ascii', 'ignore')
-        if word:
-            result.append(word)
-    return unicode(delim.join(result))
+        result.append(str(word))
+    return delim.join(result)
 
 
 ###############################################################################
@@ -238,7 +234,7 @@ def page_not_found(error):
 ###############################################################################
 # Commands
 
-@command
+@aliases("deploy")
 def build():
     """ Builds this site.
     """
@@ -251,9 +247,9 @@ def build():
     local("cp ./static/*.xml ./build/")
     print("Done.")
 
-#To do - could zip up and push to amazon...
 
-@command
+#ToDo - deploy to AWS.
+@aliases("deploy")
 def deploy():
     build()
     #right now just builds and does nothing else.
@@ -261,16 +257,16 @@ def deploy():
     # aws s3 cp <dir> s3://<bucket>/ --recursive
 
 
-@command
+@aliases("deploy")
 def post(section, title=None, filename=None):
     """ Create a new empty post.
     """
     if not os.path.exists(os.path.join(FLATPAGES_ROOT, section)):
-        raise CommandError(u"Section '%s' does not exist" % section)
+        raise CommandError("Section '%s' does not exist" % section)
     post_date = datetime.today()
-    title = unicode(title) if title else "Untitled Post"
+    title = title if title else "Untitled Post"
     if not filename:
-        filename = u"%s.md" % slugify(title)
+        filename = f"{slugify(title)}.md"
     year = post_date.year
     pathargs = [section, str(year), filename, ]
     filepath = os.path.join(os.path.abspath(os.path.dirname(__file__)),
@@ -282,15 +278,13 @@ def post(section, title=None, filename=None):
         u"date: %s" % post_date.strftime("%Y-%m-%d"),
         u"published: false\n\n",
     ])
-    try:
-        codecs.open(filepath, 'w', encoding='utf8').write(content)
-        print(u'Created %s' % filepath)
-    except Exception as error:
-        raise CommandError(error)
+    with open(filepath, 'w') as _file:
+        _file.write(content)
+    print(u'Created %s' % filepath)
 
 
-@command
-def serve(server='0.0.0.0', port=8000, debug=DEBUG):
+@aliases("serve")
+def serve(server='localhost', port=8000, debug=DEBUG):
     """ Serves this site.
     """
     asset_manager.config['ASSETS_DEBUG'] = debug
