@@ -1,0 +1,28 @@
+<article lang="{{ page.lang or "en" }}" class="{{ page.section }}" itemscope itemtype="http://schema.org/{{ item_type or "BlogPosting" }}">
+    <link itemprop="url" href="{{ url_for("page", path=page.path) }}">
+    {% if not page.published %}
+        <div style="background:orange;color:#fff;padding:5px 10px">⚠ This content is not published</div>
+    {% endif %}
+    <section>
+        {{ page.html|safe }}
+    </section>
+    <aside>
+        <p>
+            <span class="article-author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <span itemprop="name">Tim Ferrell</span> —
+            </span>
+            <time datetime="{{ page.date }}" itemprop="datePublished">{{ page.date }}</time>
+            {% if section %}— in <a href="{{ url_for("section", section=section) }}" itemprop="genre">{{ section|capitalize }}</a>{% endif %}
+        </p>
+    </aside>
+    <hr>
+    <nav>
+        {% if page.next -%}
+            <a class="next" href="{{ url_for("page", path=page.next.path) }}">{{ page.next.title }}</a>
+        {%- endif %}
+        {% if page.prev and page.next %}  |  {% endif %}
+        {% if page.prev -%}
+            <a class="prev" href="{{ url_for("page", path=page.prev.path) }}">{{ page.prev.title }}</a>
+        {%- endif %}
+    </nav>
+</article>

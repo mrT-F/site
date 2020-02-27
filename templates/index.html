@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block card_title %}title 1{% endblock %}
+{% block card_summary %}subtitle 1{% endblock %}
+{% block card_image %}{{ BASE_URL }}/static/img/favico.ico{% endblock %}
+
+{% block contents %}
+<article>
+    <figure><img src="/static/img/cover_main.png" alt="missing cover image"></figure>
+{% filter markdown %}
+Read the [blog](/blog) for notes and research on offensive and defensive security tactics, commentary on "hacking" in pop culture, some hobbyist hardware and software development, and who knows what else (cat pictures). There may occasionally be off-topic posts.
+{% endfilter %}
+
+<section class="blog">
+    <h2>Blog</h2>
+    {% with pages = blog_posts %}
+        {% include "_list.html" %}
+    {% endwith %}
+</section>
+
+{% endblock contents %}

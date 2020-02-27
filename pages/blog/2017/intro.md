@@ -1,0 +1,15 @@
+title: Hello World (blog edition)
+date: 2017-05-19
+published: true
+summary: I shout into the abyss 
+tags: hello world
+
+#Hello World (blog edition)
+
+I have a website now. I mean, it's 2017, who doesn't have a website, amirite? It's basically shameless self-promotion, a space to vent, and an opportunity to write shit down so I don't forget it later. Plus, it's one more way to put pictures of my cat on the Internet - here's one right now:
+
+![cher](/static/blog/2017/surprisedCher.jpg)
+
+Also - the Internet is awesome. One day, my girlfriend told me I should make a personal website (hers is amazing - check it out [here](http://jbellzamy.com)). Since I listen to everything she tells me, I started looking around for a decent template. I don't particularly like web development and design, and I'm not particularly good at it either, so I was looking for something relatively straightforward simple to set up. I really just wanted static pages with an easy way to update blog posts - hosting would be cheaper, and since I promote myself as a security guy, it would be pretty embarrassing if I wrote a vulnerable web app and my site got owned. Static pages eliminate most of those concerns. And I definitely didn't want to maintain a comments section. I mean, seriously, have you ever been _happy_ you scrolled down and read the comments?
+
+ The good news is Python is a nice programming language, [Flask](http://flask.pocoo.org/) is a nice Python web app framework, and [Frozen-Flask](https://github.com/Frozen-Flask/Frozen-Flask) is an easy way to generate static pages from a Flask app. (If you object to any of those statements... Well, idk. We disagree I guess). So, if you're thinking 'hmmm, suspicious... this website looks a lot like another one I've seen' - you might be thinking of [Nicolas Perriault's website](https://nicolas.perriault.net/). I stumbled across his website while researching Frozen-Flask and was impressed with the simplicity. Also, I loved that it didn't just use Bootstrap to look like every other website on the Internet - although that is a conversation for another time. Because the Internet is awesome, he posted all the source code for his site on [github](https://github.com/n1k0/nicolas.perriault.net) and licensed it under the [WTFPL](http://www.wtfpl.net). I reached out to him anyway to let him know I was planning on using his code as a starting point, which he had no problem with. I made a few stylistic changes - colors, fonts, margins, behavior on mobile devices, etc. - and added my own content. And there it was: An easily-updated static site with everything I needed. Now I can just sit in vim all day and write markdown blog posts instead of actually working. All with minimal time commitment for development, and no need to write everything from scratch. I'll say it again - the Internet is awesome. People make cool shit, they share it with everyone, and that empowers you to make your own (maybe) cool shit. Feel free to drop your thoughts in the comment section ;)

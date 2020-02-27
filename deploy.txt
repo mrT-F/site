@@ -1,0 +1,1 @@
+aws s3 cp build/ s3://aws-website-mrt-f-lahlk/ --recursive
