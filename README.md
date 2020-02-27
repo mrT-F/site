@@ -1,38 +1,28 @@
-My blog
+a site
 =======
 
-These are the whole code and contents of my [personal weblog](https://nicolas.perriault.net/), open sourced.
+This is essentially forked (fully re-licensed under the wtfpl of course) from: <https://nicolas.perriault.net/code/2012/dead-easy-yet-powerful-static-website-generator-with-flask/>, as I liked the design and concept and wanted a quick way to get a website up. (It's somewhat diverged since then).
 
-Basically it's a static website builder/generator based on [Python](http://python.org/), [Flask](http://flask.pocoo.org/), [Frozen-Flask](http://packages.python.org/Frozen-Flask/) and cool other bricks.
-
-**Read more about the technical concepts behind the code… [on my blog](https://nicolas.perriault.net/code/2012/dead-easy-yet-powerful-static-website-generator-with-flask/)** (so if you didn't know about recursivity yet, now you do).
-
-Installation
+Installation/Requirements
 ------------
+Maybe I'll manage this better one day, but get python >3.6 and:
 
-Note: you need a working installation of Python and [pip](http://pypi.python.org/pypi/pip).
-
-    $ git co https://github.com/n1k0/nicolas.perriault.net.git
-    $ cd nicolas.perriault.net
-    $ virtualenv --no-site-packages `pwd`/env
-    $ source env/bin/activate
-    (env)$ pip install -r requirements.txt
-
-Deploying
----------
-
-**Don't deploy this as is.** It's my personal weblog, remember? The code has been opensourced for educational purpose only.
-
-Also, see the [License section](#license) of this document for more information about contents copyright.
+```
+    $ git clone https://github.com/mrt-f/site.git
+    $ cd site
+    $ python3 -m venv .site-venv/
+    $ . .site-venv/bin/activate
+    (site-venv)$ pip install -r requirements.txt
+```
 
 Usage
 -----
 
-The `site` exec at the root of the repository is the only command you'll need to call to make this whole crap work:
+The `site-tool` command is what you want:
 
 To serve the website locally (optionaly in `DEBUG=True` mode):
 
-    $ ./site serve --debug
+    $ ./site-tool serve --debug
     * Running on http://127.0.0.1:5000/
     * Restarting with reloader
 
@@ -44,32 +34,20 @@ To build the static website:
 
 Generated HTML files and assets will go to the `./build/` directory.
 
-To deploy the website (caveat: my server address is harcoded ^^):
+To deploy the website to AWS (caveat: You'll need to set some environment variables for secrets)):
 
     $ ./site deploy
 
-There's also two commands for creating new posts and add new photos:
+There's also a command for creating new posts:
 
     $ ./site post code --title="My title"
-    Created /Users/niko/Sites/nperriault/pages/code/2012/my-title.md
-    $ cat pages/code/2012/my-title.md
+    Created pages/code/2016/my-title.md
+    $ cat pages/code/2016/my-title.md
     title: My title
-    date: 2012-10-05
+    date: 2016-10-05
     published: false
-
-Same for the `./site photo` command.
 
 License
 -------
 
-Contents in `./pages` and `./static/photography` (blog posts and photos) are licensed under the terms of the [Creative Commons BY-NC-SA license](http://creativecommons.org/licenses/by-nc-sa/3.0/).
-
-All the rest including Python code, templates, CSS & javascript is released under the terms of the [Do What The Fuck You Want To Public License](http://sam.zoy.org/wtfpl/).
-
-**Important note: You can freely reuse parts of the project code, but you can't republish the blog with its contents as is publicly on the Interwebs.**
-
-Supplementary Caveats
----------------------
-
-- It's up to you not being a dick with all of this, but I'm confident with that.
-- This code won't especially be maintained for other purpose than my own needs.
+Anything here is released under the terms of the [Do What The Fuck You Want To Public License](http://sam.zoy.org/wtfpl/).
